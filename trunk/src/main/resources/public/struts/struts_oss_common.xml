@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- Add packages here -->
+	
+    <package name="" namespace="/" extends="global-all">
+    	
+    	<!-- 后台首页 -->
+    	<action name="index" class="com.vernon.oss.IndexAction">
+    		<result name="success">/oss_index.ftl</result>
+    	</action>
+    	
+    	<!-- 登录 -->
+    	<action name="login" class="com.vernon.oss.LoginAction">
+    		<result name="oss_login">/oss_login.ftl</result>
+    		<result name="oss_index" type="redirect">/index.do</result>
+    	</action>
+    	
+    	<!-- 游客 -->
+    	<action name="anonymous" class="com.vernon.oss.AnonymousAction">
+    		<result name="success">/oss_anonymous.ftl</result>
+    	</action>
+    	
+    	<!-- 没有权限 -->
+    	<action name="forbid" class="com.vernon.oss.ForbidAction">
+    		<result name="success">/oss_forbid.ftl</result>
+    	</action>
+    	
+    	<!-- 欢迎页面 -->
+    	<action name="welcome" class="com.vernon.oss.WelcomeAction">
+    		<result name="success">/oss_welcome.ftl</result>
+    	</action>
+    	
+    	<!-- 左侧菜单栏 -->
+    	<action name="dashboard" class="com.vernon.oss.DashboardAction">
+    		<result name="oss_dashboard">/oss_dashboard.ftl</result>
+    	</action>
+    	
+    	<!-- 用户角色 -->
+    	<action name="role" class="com.vernon.oss.web.action.RoleAction">
+    		<result name="oss_role">/oss/system/oss_role.ftl</result>
+    		<result name="oss_role_editor">/oss/system/oss_role_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 用户角色 -->
+    	<action name="rolePopedom" class="com.vernon.oss.web.action.RolePopedomAction">
+    		<result name="oss_role">/oss/system/oss_role.ftl</result>
+    		<result name="oss_role_popedom_editor">/oss/system/oss_role_popedom_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 用户管理界面 -->
+    	<action name="popedom" class="com.vernon.oss.web.action.PopedomAction">
+    		<result name="oss_popedom">/oss/system/oss_popedom.ftl</result>
+    		<result name="oss_popedom_editor">/oss/system/oss_popedom_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 用户-->
+    	<action name="user" class="com.vernon.oss.web.action.UserAction">
+    		<result name="oss_user">/oss/system/oss_user.ftl</result>
+    		<result name="oss_user_editor">/oss/system/oss_user_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 用户角色-->
+    	<action name="userRole" class="com.vernon.oss.web.action.UserRoleAction">
+    		<result name="oss_user">/oss/system/oss_user.ftl</result>
+    		<result name="oss_user_role_editor">/oss/system/oss_user_role_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 群组管理 -->
+    	<action name="group" class="com.vernon.oss.web.action.GroupAction">
+    		<result name="oss_group">/oss/system/oss_group.ftl</result>
+    		<result name="oss_group_editor">/oss/system/oss_group_editor.ftl</result>
+    	</action>
+    	
+    	<!-- 退出系统 -->
+    	<action name="logout" class="com.vernon.oss.LogoutAction">
+    		<result name="oss_logout" type="redirect">/login.do</result>
+    	</action>
+    	
+    	<!-- 页面出错 -->
+    	<action name="pageNotFound" class="com.vernon.oss.PageNotFoundAction">
+    		
+    	</action>
+    	
+    	
+    </package>
+    
+</struts>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	
+	<display-name>Struts Blank</display-name>
+	
+	<!-- FILTER -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- FREEMARKER -->
+    <servlet>
+		<servlet-name>freemarker</servlet-name>
+		<servlet-class>freemarker.ext.servlet.FreemarkerServlet</servlet-class>
+		<init-param>
+			<param-name>TemplatePath</param-name>
+			<param-value>/WEB-INF/template</param-value>
+		</init-param>
+		<init-param>
+			<param-name>NoCache</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		
+		<!-- <init-param>
+			<param-name>ContentType</param-name>
+			<param-value>text/vnd.wap.wml</param-value>
+		</init-param> -->
+		
+		<!-- FreeMarker settings: -->
+		<init-param>
+			<param-name>template_update_delay</param-name>
+			<param-value>0</param-value>
+			<!-- 0 is for development only! Use higher value otherwise. -->
+		</init-param>
+		<init-param>
+			<param-name>default_encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>locale</param-name>
+			<param-value>en_US</param-value>
+		</init-param>
+		<init-param>
+			<param-name>number_format</param-name>
+			<param-value>0.##########</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>auto_import</param-name>
+			<param-value>"/inc/macro/vernon_oss_common.ftl" as voc</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>freemarker</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+    
+    <!-- DB -->
+	<listener>
+		<listener-class>com.vernon.oss.common.db.ProxoolInitListener</listener-class>
+	</listener>
+	
+    
+    <!-- DB -->
+	<listener>
+		<listener-class>com.vernon.oss.common.listener.ContextInitListener</listener-class>
+	</listener>
+	
+	<!-- WELCOME -->
+	<welcome-file-list>
+		<welcome-file>/login.do</welcome-file>
+		<welcome-file>login.do</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<db>
+	<!-- oss db -->
+	<proxool>
+		<alias>oss</alias>
+		<driver-url>
+			jdbc:mysql://127.0.0.1:3306/oss?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true
+		</driver-url>
+		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<driver-properties>
+			<property name="user" value="root" />
+			<property name="password" value="root" />
+		</driver-properties>
+		<maximum-connection-count>50</maximum-connection-count>
+		<simultaneous-build-throttle>50</simultaneous-build-throttle>
+		<house-keeping-test-sql>
+			select CURRENT_DATE
+    	</house-keeping-test-sql>
+	</proxool>
+	
+</db>

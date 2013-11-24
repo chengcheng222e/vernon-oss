@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="true" />
+
+	<!-- Add packages here -->
+	<package name="global-all" extends="struts-default">
+        <global-results>
+            <result name="oss_operator_success">/inc/oss_operator_success.ftl</result>
+    		<result name="oss_operator_failed">/inc/oss_operator_failed.ftl</result>
+    		<result name="oss_page_not_found">/inc/oss_page_not_found.ftl</result>
+        </global-results>
+        
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="/inc/oss_page_not_found.ftl"/>
+        </global-exception-mappings>
+	</package>
+	
+	<!-- 公共模块 -->
+	
+    <include file="struts/struts_oss_common.xml"/>  
+    <include file="struts/struts_oss_party.xml"/>  
+    <include file="struts/struts_oss_settings.xml"/>  
+    <include file="struts/struts_oss_share.xml"/>  
+    <include file="struts/struts_oss_user.xml"/>  
+    <include file="struts/struts_oss_wenda.xml"/>  
+</struts>
