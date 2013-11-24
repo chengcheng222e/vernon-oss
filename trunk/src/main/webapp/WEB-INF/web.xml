@@ -5,18 +5,21 @@
 	version="2.5">
 	
 	<display-name>Struts Blank</display-name>
-	
-	<!-- FILTER -->
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	
-	
+
+    <!-- FILTER -->
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+    <!-- DB -->
+    <listener>
+        <listener-class>com.vernon.oss.common.db.ProxoolInitListener</listener-class>
+    </listener>
 	<!-- FREEMARKER -->
     <servlet>
 		<servlet-name>freemarker</servlet-name>
@@ -69,21 +72,25 @@
 		<servlet-name>freemarker</servlet-name>
 		<url-pattern>*.ftl</url-pattern>
 	</servlet-mapping>
-    
-    <!-- DB -->
-	<listener>
-		<listener-class>com.vernon.oss.common.db.ProxoolInitListener</listener-class>
-	</listener>
-	
-    
-    <!-- DB -->
+
+    <!-- 登录拦截 -->
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.vernon.oss.web.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>loginServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ContextInitListener -->
 	<listener>
 		<listener-class>com.vernon.oss.common.listener.ContextInitListener</listener-class>
 	</listener>
-	
-	<!-- WELCOME -->
-	<welcome-file-list>
-		<welcome-file>/login.do</welcome-file>
-		<welcome-file>login.do</welcome-file>
-	</welcome-file-list>
+
+    <!-- WELCOME -->
+    <welcome-file-list>
+        <welcome-file>loginServlet</welcome-file>
+    </welcome-file-list>
+
 </web-app>

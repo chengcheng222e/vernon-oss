@@ -3,6 +3,8 @@ package com.vernon.oss;
 import com.vernon.oss.common.util.StringUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.service.OSSSvc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -11,6 +13,7 @@ import com.vernon.oss.service.OSSSvc;
  */
 public class LoginAction
 		extends OSSBaseAction {
+    private static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
 
 	// ------------------------------ field names ------------------------------
 
@@ -21,6 +24,7 @@ public class LoginAction
 
 	@Override
 	public String execute() throws Exception {
+        logger.info("--------- 欢迎进入 LoginAction ----------");
 		// 第一次访问不拦截
 		if (StringUtil.isEmpty(email) && StringUtil.isEmpty(password)) {
 			email = WebUtil.getCookie(request, "email");
