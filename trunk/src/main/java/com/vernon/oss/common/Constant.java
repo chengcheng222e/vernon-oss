@@ -46,13 +46,13 @@ public class Constant
 
 	// ************************* 邮件配置 *************************
 
-	public static String EMAIL_SMTPHOSTNAME = "smtp.sina.com";
+	public static String EMAIL_SMTPHOSTNAME = "smtp.163.com";
 
-	public static String EMAIL_FROMADDRESS = "chengcheng222e@sina.com";
+	public static String EMAIL_FROMADDRESS = "chengcheng222e@163.com";
 
 	public static String EMAIL_FROMNAME = "chengcheng222e";
 
-	public static String EMAIL_SMTPUSERNAME = "chengcheng222e@sina.com";
+	public static String EMAIL_SMTPUSERNAME = "chengcheng222e@163.com";
 
 	public static String EMAIL_SMTPPASSWORD = "jizhuni632375";
 
