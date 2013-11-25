@@ -73,16 +73,6 @@
 		<url-pattern>*.ftl</url-pattern>
 	</servlet-mapping>
 
-    <!-- 登录拦截 -->
-    <servlet>
-        <servlet-name>loginServlet</servlet-name>
-        <servlet-class>com.vernon.oss.web.servlet.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>loginServlet</servlet-name>
-        <url-pattern>loginServlet</url-pattern>
-    </servlet-mapping>
-
     <!-- ContextInitListener -->
 	<listener>
 		<listener-class>com.vernon.oss.common.listener.ContextInitListener</listener-class>
@@ -90,7 +80,7 @@
 
     <!-- WELCOME -->
     <welcome-file-list>
-        <welcome-file>loginServlet</welcome-file>
+        <welcome-file>login.do</welcome-file>
     </welcome-file-list>
 
 </web-app>
