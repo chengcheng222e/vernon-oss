@@ -24,7 +24,7 @@
 				<div id="main-content">
 					<#nested />
 				</div> 
-				<#include "/oss_default_footer.ftl" />
+				<#include "../../oss_default_footer.ftl" />
 			</div>
 		</body>
 	</html> 
