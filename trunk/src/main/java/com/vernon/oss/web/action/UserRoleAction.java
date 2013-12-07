@@ -10,7 +10,7 @@ import com.vernon.oss.common.web.util.ParameterUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSRole;
 import com.vernon.oss.domain.OSSUser;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import com.vernon.oss.OSSBaseAction;
 
 public class UserRoleAction
@@ -33,15 +33,15 @@ public class UserRoleAction
 	public String execute() throws Exception {
 		int[] roleIds = ParameterUtil.getParameterForIntegerArray(request, "roleId");
 
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (user == null) {
 			WebUtil.setErrorMessage(session, "用户不存在");
 			return "oss_user";
 		}
 
-		roles = OSSSvc.getRole();
+		roles = OSSService.getRole();
 		userRoleMap = new HashMap<String, OSSRole>();
-		Set<OSSRole> userRoles = OSSSvc.getRoleByUserId(userId);
+		Set<OSSRole> userRoles = OSSService.getRoleByUserId(userId);
 		for (OSSRole role : userRoles) {
 			userRoleMap.put("" + role.getRoleId(), role);
 		}
@@ -50,7 +50,7 @@ public class UserRoleAction
 			token = WebUtil.addToken(request.getSession());
 			return "oss_user_role_editor";
 		}
-		boolean result = OSSSvc.addUserRole(userId, roleIds);
+		boolean result = OSSService.addUserRole(userId, roleIds);
 		if (!result) {
 			WebUtil.setErrorMessage(session, "修改失败,请再试一次!");
 			return "oss_user";

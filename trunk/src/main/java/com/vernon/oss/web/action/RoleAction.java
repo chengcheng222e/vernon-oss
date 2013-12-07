@@ -5,7 +5,7 @@ import java.util.List;
 import com.vernon.oss.common.logger.LogUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSRole;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import com.vernon.oss.OSSBaseAction;
 
 /**
@@ -36,7 +36,7 @@ public class RoleAction
 	 */
 	@Override
 	public String execute() throws Exception {
-		roles = OSSSvc.getRole();
+		roles = OSSService.getRole();
 		return "oss_role";
 	}
 
@@ -49,7 +49,7 @@ public class RoleAction
 	 */
 	public String editor() {
 		// 设置用户
-		role = OSSSvc.getRole(roleId);
+		role = OSSService.getRole(roleId);
 		if (token == null || !WebUtil.verifyToken(session, token)) {
 			token = WebUtil.addToken(session);
 			return "oss_role_editor";
@@ -59,7 +59,7 @@ public class RoleAction
 			WebUtil.setErrorMessage(session, "角色名为必填项!");
 			return "oss_role_editor";
 		}
-		boolean result = OSSSvc.mergerRole(roleId, roleName, locked != 0, remark);
+		boolean result = OSSService.mergerRole(roleId, roleName, locked != 0, remark);
 		if (!result) {
 			WebUtil.setErrorMessage(session, "修改失败,请再试一次!");
 			return "oss_role_editor";
@@ -87,19 +87,19 @@ public class RoleAction
 	 * @date 2013-6-21
 	 */
 	public String remove() {
-		role = OSSSvc.getRole(roleId);
+		role = OSSService.getRole(roleId);
 		if (role == null) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "删除的角色不存在");
 			return "oss_role";
 		}
 		if (role.isReadOnly()) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "删除的角色 [ " + role.getRoleName() + " ] 权限为只读");
 			return "oss_role";
 		}
-		if (!OSSSvc.deleteRole(roleId)) {
-			roles = OSSSvc.getRole();
+		if (!OSSService.deleteRole(roleId)) {
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "删除的角色失败");
 			return "oss_role";
 		}
@@ -119,18 +119,18 @@ public class RoleAction
 	 * @date 2013-6-21
 	 */
 	public String unlock() {
-		role = OSSSvc.getRole(roleId);
+		role = OSSService.getRole(roleId);
 		if (role == null) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "解锁的角色不存在");
 			return "oss_role";
 		}
 		if (role.isReadOnly() || !role.isLocked()) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "解锁的角色 [ " + role.getRoleName() + " ] 权限为只读 ,或者已经是解锁状态");
 			return "oss_role";
 		}
-		if (!OSSSvc.unlockRole(roleId)) {
+		if (!OSSService.unlockRole(roleId)) {
 			return "oss_operator_failed";
 		}
 		//增加操作日志
@@ -149,18 +149,18 @@ public class RoleAction
 	 * @date 2013-6-21
 	 */
 	public String lock() {
-		role = OSSSvc.getRole(roleId);
+		role = OSSService.getRole(roleId);
 		if (role == null) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "锁定的角色不存在");
 			return "oss_role";
 		}
 		if (role.isReadOnly() || role.isLocked()) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "锁定的角色 [ " + role.getRoleName() + " ] 权限为只读 ,或者已经是锁定状态");
 			return "oss_role";
 		}
-		if (!OSSSvc.lockRole(roleId)) {
+		if (!OSSService.lockRole(roleId)) {
 			return "oss_operator_failed";
 		}
 		//增加操作日志

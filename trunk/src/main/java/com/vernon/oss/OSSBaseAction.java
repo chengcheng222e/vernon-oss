@@ -6,7 +6,7 @@ import com.vernon.oss.common.web.BaseAction;
 import com.vernon.oss.common.web.util.RequestUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSContext;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 
 /**
  *
@@ -46,7 +46,7 @@ public class OSSBaseAction
 		if (ossContext == null) {
 			String email = WebUtil.getCookie(request, "email");
 			String password = WebUtil.getCookie(request, "password");
-			ossContext = OSSSvc.login(email, password);
+			ossContext = OSSService.login(email, password);
 			WebUtil.setContext(request.getSession(), ossContext);
 		}
 		// 写进访问日志

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.vernon.oss.domain.OSSGroup;
 import com.vernon.oss.domain.OSSPopedom;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 
 /**
  *
@@ -28,10 +28,10 @@ public class DashboardAction
 			return "oss_dashboard";
 		}
 		//用户分组列表
-		groups = OSSSvc.getGroup();
+		groups = OSSService.getGroup();
 		popedomsMap = new HashMap<String, List<OSSPopedom>>();
 		//权限列表
-		List<OSSPopedom> popedoms = OSSSvc.getPopedom();
+		List<OSSPopedom> popedoms = OSSService.getPopedom();
 		for (OSSGroup group : groups) {
 			List<OSSPopedom> p = new ArrayList<OSSPopedom>();
 			for (OSSPopedom popedom : popedoms) {

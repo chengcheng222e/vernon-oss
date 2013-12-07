@@ -34,9 +34,9 @@ import com.vernon.oss.domain.OSSUserRole;
  * @author Vernon.Chen
  *
  */
-public class OSSSvc {
+public class OSSService {
 
-	private static final Logger logger = Logger.getLogger(OSSSvc.class);
+	private static final Logger logger = Logger.getLogger(OSSService.class);
 
 	private static final OSSUserDao userDao = new OSSUserDao();
 
@@ -770,10 +770,10 @@ public class OSSSvc {
 
 	public static void main(String[] args) {
 		ConnectionProvider.setProxoolConfig("proxool.xml");
-		OSSContext context = OSSSvc.login("sunny.liu@a8.com", "000000");
-		List<OSSGroup> groups = OSSSvc.getGroup();
+		OSSContext context = OSSService.login("sunny.liu@a8.com", "000000");
+		List<OSSGroup> groups = OSSService.getGroup();
 		Map<String, List<OSSPopedom>> popedomsMap = new HashMap<String, List<OSSPopedom>>();
-		List<OSSPopedom> popedoms = OSSSvc.getPopedom();
+		List<OSSPopedom> popedoms = OSSService.getPopedom();
 		for (OSSGroup group : groups) {
 			List<OSSPopedom> p = new ArrayList<OSSPopedom>();
 			for (OSSPopedom popedom : popedoms) {

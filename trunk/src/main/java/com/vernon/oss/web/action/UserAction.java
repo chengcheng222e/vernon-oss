@@ -6,7 +6,7 @@ import com.vernon.oss.common.util.MailUtil;
 import com.vernon.oss.common.util.UUIDUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSUser;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import com.vernon.oss.OSSBaseAction;
 
 /**
@@ -40,7 +40,7 @@ public class UserAction
 	 */
 	@Override
 	public String execute() throws Exception {
-		users = OSSSvc.getUser(pageIndex, MAX_ITEM);
+		users = OSSService.getUser(pageIndex, MAX_ITEM);
 		return "oss_user";
 	}
 
@@ -53,7 +53,7 @@ public class UserAction
 	 * @date 2013-6-21
 	 */
 	public String editor() throws Exception {
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (token == null || !WebUtil.verifyToken(session, token)) {
 			token = WebUtil.addToken(session);
 			return "oss_user_editor";
@@ -68,14 +68,14 @@ public class UserAction
 			WebUtil.setErrorMessage(session, "真实姓名为必填项!");
 			return "oss_user";
 		}
-		OSSUser emailUser = OSSSvc.getUser(email);
+		OSSUser emailUser = OSSService.getUser(email);
 		if (emailUser != null && emailUser.getUserId() != userId) {
 			execute();
 			WebUtil.setErrorMessage(session, "您所输入的电子邮件地址已经被占用!");
 			return "oss_user";
 		}
 		String password = UUIDUtil.getUUID().substring(0, 10);
-		boolean result = OSSSvc.mergerUser(userId, email, password, realName, locked != 0, remark);
+		boolean result = OSSService.mergerUser(userId, email, password, realName, locked != 0, remark);
 		if (!result) {
 			execute();
 			WebUtil.setErrorMessage(request.getSession(), "修改失败,请再试一次!");
@@ -104,7 +104,7 @@ public class UserAction
 	 * @date 2013-6-21
 	 */
 	public String remove() throws Exception {
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (user == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "删除的用户不存在");
@@ -115,7 +115,7 @@ public class UserAction
 			WebUtil.setErrorMessage(session, "删除的用户 [ " + user.getRealName() + " ] 是只读状态");
 			return "oss_user";
 		}
-		if (!OSSSvc.deleteUser(userId)) {
+		if (!OSSService.deleteUser(userId)) {
 			execute();
 			WebUtil.setErrorMessage(session, "删除的用户 [ " + user.getRealName() + " ] 失败");
 			return "oss_user";
@@ -136,7 +136,7 @@ public class UserAction
 	 * @date 2013-6-21
 	 */
 	public String unlock() throws Exception {
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (user == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "解锁的用户不存在");
@@ -147,7 +147,7 @@ public class UserAction
 			WebUtil.setErrorMessage(session, "解锁的用户 [ " + user.getRealName() + " ] 是只读状态, 或者用户已经是解锁状态");
 			return "oss_user";
 		}
-		if (!OSSSvc.unlockUser(userId)) {
+		if (!OSSService.unlockUser(userId)) {
 			execute();
 			WebUtil.setErrorMessage(session, "解锁的用户 [ " + user.getRealName() + " ] 失败");
 			return "oss_user";
@@ -166,7 +166,7 @@ public class UserAction
 	 * @date 2013-6-21
 	 */
 	public String lock() throws Exception {
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (user == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "锁定的用户不存在");
@@ -177,7 +177,7 @@ public class UserAction
 			WebUtil.setErrorMessage(session, "锁定的用户 [ " + user.getRealName() + " ] 是只读状态, 或者用户已经是锁定状态");
 			return "oss_user";
 		}
-		if (!OSSSvc.lockUser(userId)) {
+		if (!OSSService.lockUser(userId)) {
 			execute();
 			WebUtil.setErrorMessage(session, "锁定的用户 [ " + user.getRealName() + " ] 失败");
 			return "oss_user";
@@ -194,14 +194,14 @@ public class UserAction
 	 * @throws Exception 
 	 */
 	public String passwordReset () throws Exception {
-		user = OSSSvc.getUser(userId);
+		user = OSSService.getUser(userId);
 		if (user == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "用户不存在");
 			return "oss_user";
 		}
 		String password = UUIDUtil.getUUID().substring(0, 10) ;
-		if (!OSSSvc.mergerPassword(userId, password)) {
+		if (!OSSService.mergerPassword(userId, password)) {
 			execute();
 			WebUtil.setErrorMessage(session, "用户 [ " + user.getRealName() + " ] 的密码设置失败.请重新设置");
 			return "oss_user";

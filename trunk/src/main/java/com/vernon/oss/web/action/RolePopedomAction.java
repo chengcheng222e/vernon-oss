@@ -12,7 +12,7 @@ import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSGroup;
 import com.vernon.oss.domain.OSSPopedom;
 import com.vernon.oss.domain.OSSRole;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import com.vernon.oss.OSSBaseAction;
 
 /**
@@ -42,17 +42,17 @@ public class RolePopedomAction
 	public String execute() throws Exception {
 		List<Integer> popsArr = new ArrayList<Integer>();
 		
-		role = OSSSvc.getRole(roleId);
+		role = OSSService.getRole(roleId);
 		if (role == null) {
-			roles = OSSSvc.getRole();
+			roles = OSSService.getRole();
 			WebUtil.setErrorMessage(session, "编辑的角色不存在");
 			return "oss_role";
 		}
 		
-		groupList = OSSSvc.getGroup();
+		groupList = OSSService.getGroup();
 		popedomMap = new HashMap<String, List<OSSPopedom>>();
 		for (OSSGroup ossg : groupList) {
-			popedomMap.put(ossg.getGroupId() + "", OSSSvc.getPopedomList(ossg.getGroupId()));
+			popedomMap.put(ossg.getGroupId() + "", OSSService.getPopedomList(ossg.getGroupId()));
 			popedomIds = ParameterUtil.getParameterForIntegerArray(request, "popedomId" + ossg.getGroupId());
 			if (popedomIds != null) {
 				for (int i = 0; i < popedomIds.length; i++) {
@@ -69,7 +69,7 @@ public class RolePopedomAction
 		}
 		
 		rolePopedomMap = new HashMap<String, OSSPopedom>();
-		Set<OSSPopedom> rolePopedoms = OSSSvc.getPopedomByRoleId(roleId);
+		Set<OSSPopedom> rolePopedoms = OSSService.getPopedomByRoleId(roleId);
 		for (OSSPopedom popedom : rolePopedoms) {
 			rolePopedomMap.put("" + popedom.getPopedomId(), popedom);
 		}
@@ -79,7 +79,7 @@ public class RolePopedomAction
 			return "oss_role_popedom_editor";
 		}
 		
-		boolean result = OSSSvc.addRolePopedom(roleId, popedomIds);
+		boolean result = OSSService.addRolePopedom(roleId, popedomIds);
 		if (!result) {
 			WebUtil.setErrorMessage(session, "修改失败,请再试一次!");
 			return "oss_role_popedom_editor";

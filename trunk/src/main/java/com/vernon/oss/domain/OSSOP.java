@@ -2,7 +2,7 @@ package com.vernon.oss.domain;
 
 import java.util.Date;
 
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 
 /**
  * 
@@ -131,7 +131,7 @@ public class OSSOP {
 	 * @return
 	 */
 	public final String getUserName() {
-		OSSUser user = OSSSvc.getUser(this.getUserId());
+		OSSUser user = OSSService.getUser(this.getUserId());
 		if (user != null) {
 			return user.getRealName();
 		}

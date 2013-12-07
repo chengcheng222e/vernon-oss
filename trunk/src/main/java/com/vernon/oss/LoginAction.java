@@ -2,7 +2,7 @@ package com.vernon.oss;
 
 import com.vernon.oss.common.util.StringUtil;
 import com.vernon.oss.common.web.util.WebUtil;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class LoginAction
 			WebUtil.setErrorMessage(this.session, "密码不可为空!");
 			return "oss_login";
 		}
-		this.ossContext = OSSSvc.login(email, password);
+		this.ossContext = OSSService.login(email, password);
 		if (ossContext == null) {
 			WebUtil.setErrorMessage(this.session, "登录失败,用户名密码错误,或者您已经被锁定!");
 			return "oss_login";

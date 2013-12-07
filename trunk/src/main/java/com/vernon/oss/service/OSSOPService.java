@@ -12,7 +12,7 @@ import com.vernon.oss.domain.OSSOP;
  * @author Vernon.Chen
  *
  */
-public class OSSOPSvc {
+public class OSSOPService {
 
 	private static final OSSOPDao ossOPDao = new OSSOPDao();
 

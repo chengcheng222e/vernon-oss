@@ -8,7 +8,7 @@ import com.vernon.oss.common.logger.LogUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSGroup;
 import com.vernon.oss.domain.OSSPopedom;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 import com.vernon.oss.OSSBaseAction;
 
 /**
@@ -41,10 +41,10 @@ public class PopedomAction
 
 	@Override
 	public String execute() throws Exception {
-		ossGroups = OSSSvc.getGroup();
+		ossGroups = OSSService.getGroup();
 		popedomMap = new HashMap<String, List<OSSPopedom>>();
 		for (OSSGroup ossg : ossGroups) {
-			List<OSSPopedom> pops = OSSSvc.getPopedomList(ossg.getGroupId());
+			List<OSSPopedom> pops = OSSService.getPopedomList(ossg.getGroupId());
 			popedomMap.put(ossg.getGroupId() + "", pops);
 		}
 		return "oss_popedom";
@@ -58,8 +58,8 @@ public class PopedomAction
 	 * @date 2013-6-21
 	 */
 	public String editor() {
-		groups = OSSSvc.getGroup();
-		popedom = OSSSvc.getPopedom(popedomId);
+		groups = OSSService.getGroup();
+		popedom = OSSService.getPopedom(popedomId);
 		if (token == null || !WebUtil.verifyToken(session, token)) {
 			token = WebUtil.addToken(session);
 			return "oss_popedom_editor";
@@ -74,13 +74,13 @@ public class PopedomAction
 			return "oss_popedom_editor";
 		}
 
-		OSSGroup group = OSSSvc.getGroup(groupId);
+		OSSGroup group = OSSService.getGroup(groupId);
 		if (group == null) {
 			WebUtil.setErrorMessage(session, "所属分组为必填项!");
 			return "oss_popedom_editor";
 		}
 
-		boolean result = OSSSvc.mergerPopedom(popedomId, groupId, popedomName, locked != 0, hide != 0, URI, remark);
+		boolean result = OSSService.mergerPopedom(popedomId, groupId, popedomName, locked != 0, hide != 0, URI, remark);
 		if (!result) {
 			WebUtil.setErrorMessage(session, "修改失败,请再试一次!");
 			return "oss_popedom_editor";
@@ -108,7 +108,7 @@ public class PopedomAction
 	 * @date 2013-6-21
 	 */
 	public String remove() throws Exception {
-		popedom = OSSSvc.getPopedom(popedomId);
+		popedom = OSSService.getPopedom(popedomId);
 		if (popedom == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "删除的权限不存在");
@@ -119,7 +119,7 @@ public class PopedomAction
 			WebUtil.setErrorMessage(session, "删除的 [ " + popedom.getPopedomName() + " ] 权限为只读");
 			return "oss_role";
 		}
-		if (!OSSSvc.deletePopedom(popedomId)) {
+		if (!OSSService.deletePopedom(popedomId)) {
 			execute();
 			WebUtil.setErrorMessage(session, "删除权限失败");
 			return "oss_role";
@@ -142,7 +142,7 @@ public class PopedomAction
 	 * @date 2013-6-21
 	 */
 	public String unlock() throws Exception {
-		popedom = OSSSvc.getPopedom(popedomId);
+		popedom = OSSService.getPopedom(popedomId);
 		if (popedom == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "解锁权限不存在");
@@ -153,7 +153,7 @@ public class PopedomAction
 			WebUtil.setErrorMessage(session, "解锁的权限 [ " + popedom.getPopedomName() + " ] 为只读 ,或者已经是解锁状态");
 			return "oss_popedom";
 		}
-		if (!OSSSvc.unlockPopedom(popedomId)) {
+		if (!OSSService.unlockPopedom(popedomId)) {
 			return "oss_operator_failed";
 		}
 		//增加操作日志
@@ -173,7 +173,7 @@ public class PopedomAction
 	 * @date 2013-6-21
 	 */
 	public String lock() throws Exception {
-		popedom = OSSSvc.getPopedom(popedomId);
+		popedom = OSSService.getPopedom(popedomId);
 		if (popedom == null) {
 			execute();
 			WebUtil.setErrorMessage(session, "锁定权限不存在");
@@ -184,7 +184,7 @@ public class PopedomAction
 			WebUtil.setErrorMessage(session, "锁定的角色 [ " + popedom.getPopedomName() + " ] 权限为只读 ,或者已经是锁定状态");
 			return "oss_role";
 		}
-		if (!OSSSvc.lockPopedom(popedomId)) {
+		if (!OSSService.lockPopedom(popedomId)) {
 			return "oss_operator_failed";
 		}
 		//增加操作日志

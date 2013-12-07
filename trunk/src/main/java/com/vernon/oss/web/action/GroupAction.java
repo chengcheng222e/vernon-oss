@@ -7,7 +7,7 @@ import com.vernon.oss.common.logger.LogUtil;
 import com.vernon.oss.common.util.StringUtil;
 import com.vernon.oss.common.web.util.WebUtil;
 import com.vernon.oss.domain.OSSGroup;
-import com.vernon.oss.service.OSSSvc;
+import com.vernon.oss.service.OSSService;
 
 public class GroupAction
 		extends OSSBaseAction {
@@ -29,7 +29,7 @@ public class GroupAction
 
 	@Override
 	public String execute() throws Exception {
-		groups = OSSSvc.getGroup();
+		groups = OSSService.getGroup();
 		return "oss_group";
 	}
 
@@ -39,20 +39,20 @@ public class GroupAction
 	 * @return
 	 */
 	public String remove() {
-		group = OSSSvc.getGroup(groupId);
+		group = OSSService.getGroup(groupId);
 		if (group == null) {
-			groups = OSSSvc.getGroup();
+			groups = OSSService.getGroup();
 			WebUtil.setErrorMessage(session, "删除的组不存在");
 			return "oss_group";
 		}
 
 		if (group.isReadOnly()) {
-			groups = OSSSvc.getGroup();
+			groups = OSSService.getGroup();
 			WebUtil.setErrorMessage(session, "删除的组 [" + group.getGroupName() + "] 不存在");
 			return "oss_group";
 		}
-		if (!OSSSvc.deleteGroup(groupId)) {
-			groups = OSSSvc.getGroup();
+		if (!OSSService.deleteGroup(groupId)) {
+			groups = OSSService.getGroup();
 			WebUtil.setErrorMessage(session, "删除的组失败");
 			return "oss_group";
 		}
@@ -70,7 +70,7 @@ public class GroupAction
 	 * @return
 	 */
 	public String editor() {
-		group = OSSSvc.getGroup(groupId);
+		group = OSSService.getGroup(groupId);
 		if (token == null || !WebUtil.verifyToken(session, token)) {
 			token = WebUtil.addToken(session);
 			return "oss_group_editor";
@@ -79,7 +79,7 @@ public class GroupAction
 			WebUtil.setErrorMessage(session, "分组名为必填项!");
 			return "oss_group_editor";
 		}
-		if (!OSSSvc.mergerGroup(groupId, groupName, hide != 0, remark)) {
+		if (!OSSService.mergerGroup(groupId, groupName, hide != 0, remark)) {
 			WebUtil.setErrorMessage(session, "修改失败,请再试一次!");
 			return "oss_group_editor";
 		}

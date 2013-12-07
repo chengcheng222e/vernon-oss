@@ -1,8 +1,7 @@
 package com.vernon.oss.common.logger;
 
+import com.vernon.oss.service.OSSOPService;
 import org.apache.log4j.Logger;
-
-import com.vernon.oss.service.OSSOPSvc;
 
 /**
  * 日志管理
@@ -42,8 +41,8 @@ public class LogUtil {
 		sb.append(remark);
 		sb.append(" ");
 		sb.append(cls.getName());
-		OSSOPSvc.addOSSOP(Integer.parseInt(userId.toString()), "" + title, "" + content, "" + IP, cls.getName(), ""
-				+ remark);
+		OSSOPService.addOSSOP(Integer.parseInt(userId.toString()), "" + title, "" + content, "" + IP, cls.getName(), ""
+                + remark);
 		logger.info(sb.toString());
 	}
 }
